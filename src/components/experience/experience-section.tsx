@@ -17,7 +17,7 @@ export default function ExperienceSection() {
         <div className="mt-14 space-y-10 border-l border-white/10 pl-8">
           {t.experience.items.map((item, index) => (
             <motion.div
-              key={item.title}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -34,8 +34,8 @@ export default function ExperienceSection() {
               )}
               {item.bullets.length > 0 && (
                 <ul className="mt-3 space-y-2">
-                  {item.bullets.map((bullet) => (
-                    <li key={bullet} className="font-sans text-sm font-light text-white/70">
+                  {item.bullets.map((bullet, bulletIndex) => (
+                    <li key={bulletIndex} className="font-sans text-sm font-light text-white/70">
                       {bullet}
                     </li>
                   ))}

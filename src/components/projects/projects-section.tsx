@@ -16,13 +16,13 @@ export default function ProjectsSection() {
 
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {featured.map((item, index) => (
-            <ProjectCardFeatured key={item.title} {...item} index={index} />
+            <ProjectCardFeatured key={index} {...item} index={index} />
           ))}
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {compact.map((item, index) => (
-            <ProjectCardCompact key={item.title} {...item} index={index} />
+            <ProjectCardCompact key={index} {...item} index={index} />
           ))}
 
           <ProjectCardCompact

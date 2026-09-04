@@ -52,9 +52,9 @@ export default function ProjectCardFeatured({
       <p className="mt-4 max-w-2xl font-sans text-sm font-light text-white/70">{description}</p>
 
       <div className="mt-6 flex flex-wrap gap-2">
-        {tags.map((tag) => (
+        {tags.map((tag, tagIndex) => (
           <span
-            key={tag}
+            key={tagIndex}
             className="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] text-white/50"
           >
             {tag}

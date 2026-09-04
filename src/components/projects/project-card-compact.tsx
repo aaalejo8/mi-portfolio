@@ -52,9 +52,9 @@ export default function ProjectCardCompact({
       <p className="mt-3 font-sans text-sm font-light text-white/60">{description}</p>
 
       <div className="mt-4 flex flex-wrap gap-2">
-        {tags.map((tag) => (
+        {tags.map((tag, tagIndex) => (
           <span
-            key={tag}
+            key={tagIndex}
             className="rounded-full border border-white/10 px-2.5 py-0.5 font-mono text-[10px] text-white/50"
           >
             {tag}

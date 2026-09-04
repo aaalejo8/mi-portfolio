@@ -12,8 +12,13 @@ export const en: Dictionary = {
   },
   about: {
     eyebrow: "// about",
-    statement:
-      "Advanced Computer Engineering student (UCASAL) building full-stack products, based in Salta, Argentina.",
+    paragraphs: [
+      "I'm drawn to technology mainly for its ability to turn everyday problems into real solutions. I enjoy building products from scratch just as much as analyzing, improving, and refactoring existing systems.",
+      "I'm currently building Full Stack projects while going deeper into areas like Machine Learning, workflow automation, and AI agents. I'm especially interested in exploring how to combine traditional development with tools like Claude Code, Codex, and Cursor to work more efficiently and expand what I can build.",
+      "I've worked on university projects and projects with real-world needs, collaborating in teams under agile methodologies like Scrum and using GitHub and Trello as a regular part of my workflow. Within teams I tend to take on an organized, proactive role, helping coordinate when needed and, when facing something unfamiliar, researching, listening, and learning quickly.",
+      "I'm also interested in understanding the product beyond the code. I've worked with concepts related to automation, content engines, agents, funnels, and digital strategy, which helps me better understand how a technical solution can add value within a product or business.",
+      "I believe Artificial Intelligence represents a shift similar to what the Internet brought: rather than replacing people who work with technology, it transforms the way we work. That's why I keep learning how to use it as a tool to enhance my capabilities as a developer.",
+    ],
     identity: [
       "Software Developer at Once TV Salta (2024–2026)",
       "Full-stack developer",
@@ -155,9 +160,12 @@ export const en: Dictionary = {
   },
   contact: {
     eyebrow: "// contact",
-    statement: "Have a project in mind? Let's talk.",
+    statementLead: "Have a project in mind?",
+    statementHighlight: "Let's talk.",
     cta: "Get in touch",
+    ctaHover: "Open email ↗",
     github: "GitHub",
     email: "Email",
+    linkedin: "LinkedIn",
   },
 };

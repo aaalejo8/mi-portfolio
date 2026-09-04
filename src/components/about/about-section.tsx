@@ -19,15 +19,26 @@ export default function AboutSection() {
           {t.about.eyebrow}
         </motion.p>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, delay: 0.05, ease: "easeOut" }}
-          className="mt-3 max-w-3xl font-sans text-2xl font-light leading-snug text-white/90 sm:text-3xl"
+          transition={{ delayChildren: 0.05, staggerChildren: 0.1 }}
+          className="mt-6 max-w-3xl space-y-5"
         >
-          {t.about.statement}
-        </motion.h2>
+          {t.about.paragraphs.map((paragraph, index) => (
+            <motion.p
+              key={index}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+              }}
+              className="font-sans text-base font-light leading-relaxed text-white/70 sm:text-lg"
+            >
+              {paragraph}
+            </motion.p>
+          ))}
+        </motion.div>
 
         <motion.ul
           initial="hidden"
@@ -36,9 +47,9 @@ export default function AboutSection() {
           transition={{ delayChildren: 0.1, staggerChildren: 0.06 }}
           className="mt-10 flex flex-wrap gap-3"
         >
-          {t.about.identity.map((item) => (
+          {t.about.identity.map((item, index) => (
             <motion.li
-              key={item}
+              key={index}
               variants={{
                 hidden: { opacity: 0, y: 14 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
