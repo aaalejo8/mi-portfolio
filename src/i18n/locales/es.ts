@@ -30,6 +30,9 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     hint: string;
+    idleTitle: string;
+    idleDescription: string;
+    descriptions: Record<string, string>;
   };
   projects: {
     eyebrow: string;
@@ -82,8 +85,32 @@ export const es: Dictionary = {
   },
   skills: {
     eyebrow: "// skills",
-    title: "Stack técnico",
-    hint: "hover to interact",
+    title: "SKILLS",
+    hint: "(sugerencia: presioná una tecla)",
+    idleTitle: "Elegí una tecnología",
+    idleDescription: "Presioná una tecla física o hacé clic en el macropad.",
+    descriptions: {
+      java: "el abuelo de todo, todavía compila.",
+      python: "indentado a la fuerza, pero todos lo aman.",
+      javascript: "== es una trampa, usá ===.",
+      typescript: "JavaScript con culpa católica.",
+      sql: "SELECT * FROM problemas WHERE solucion = NULL.",
+      html: "no es un lenguaje de programación, pero sostiene todo.",
+      css: "centrar un div nunca fue tan personal.",
+      react: "todo es un componente, hasta los problemas.",
+      nextjs: "el framework que decide todo por vos (y está bien).",
+      nodejs: "JavaScript escapó del navegador y no volvió.",
+      restapis: "GET, POST, y una que otra promesa rota.",
+      graphql: "pedí exactamente lo que necesitás, por una vez.",
+      supabase: "Firebase pero con SQL de verdad.",
+      postgresql: "la base de datos que nunca te decepciona.",
+      docker: "funciona en mi máquina... y ahora en todas.",
+      git: "commit, push, y rezar un poco.",
+      github: "donde vive el código y también los issues sin resolver.",
+      vercel: "deploy en un click, literalmente.",
+      figma: "donde el diseño se vuelve real (casi).",
+      n8n: "automatizo lo aburrido para vos.",
+    },
   },
   projects: {
     eyebrow: "// projects",
