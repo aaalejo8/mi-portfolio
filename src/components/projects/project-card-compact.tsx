@@ -8,6 +8,7 @@ interface ProjectCardCompactProps {
   description: string;
   tags: readonly string[];
   status?: "in-development" | "completed" | "planned";
+  index?: number;
 }
 
 export default function ProjectCardCompact({
@@ -15,6 +16,7 @@ export default function ProjectCardCompact({
   description,
   tags,
   status,
+  index = 0,
 }: ProjectCardCompactProps) {
   const { t } = useLanguage();
   const statusLabel = status
@@ -30,8 +32,9 @@ export default function ProjectCardCompact({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="group flex flex-col rounded-xl border border-white/10 bg-surface p-6 transition-colors hover:border-accent/40"
+      whileHover={{ y: -4, transition: { duration: 0.2, ease: "easeOut" } }}
+      transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
+      className="group flex flex-col rounded-xl border border-white/10 bg-surface p-6 shadow-none transition-[colors,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[0_16px_32px_-18px_rgba(102,179,255,0.25)]"
     >
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-heading text-base text-white">{title}</h3>

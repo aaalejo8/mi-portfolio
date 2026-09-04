@@ -1,6 +1,7 @@
 import AnimatedGradient from "@/components/ui/animated-gradient";
 import HeroProfile from "@/components/hero/hero-profile";
 import HeroContent from "@/components/hero/hero-content";
+import ScrollCue from "@/components/hero/scroll-cue";
 
 export default function PortfolioHero() {
   return (
@@ -14,6 +15,8 @@ export default function PortfolioHero() {
           <HeroContent />
         </div>
       </div>
+
+      <ScrollCue />
     </section>
   );
 }

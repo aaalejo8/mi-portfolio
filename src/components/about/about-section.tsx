@@ -30,19 +30,24 @@ export default function AboutSection() {
         </motion.h2>
 
         <motion.ul
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+          transition={{ delayChildren: 0.1, staggerChildren: 0.06 }}
           className="mt-10 flex flex-wrap gap-3"
         >
           {t.about.identity.map((item) => (
-            <li
+            <motion.li
               key={item}
+              variants={{
+                hidden: { opacity: 0, y: 14 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+              }}
+              whileHover={{ scale: 1.05 }}
               className="rounded-full border border-white/10 bg-surface px-4 py-2 font-mono text-xs text-white/70 transition-colors hover:border-accent/40 hover:text-white"
             >
               {item}
-            </li>
+            </motion.li>
           ))}
         </motion.ul>
       </div>

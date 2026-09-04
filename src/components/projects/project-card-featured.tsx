@@ -8,6 +8,7 @@ interface ProjectCardFeaturedProps {
   description: string;
   tags: readonly string[];
   status: "in-development" | "completed" | "planned";
+  index?: number;
 }
 
 export default function ProjectCardFeatured({
@@ -15,6 +16,7 @@ export default function ProjectCardFeatured({
   description,
   tags,
   status,
+  index = 0,
 }: ProjectCardFeaturedProps) {
   const { t } = useLanguage();
   const statusLabel = {
@@ -28,8 +30,9 @@ export default function ProjectCardFeatured({
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="group rounded-2xl border border-white/10 bg-surface p-8 transition-colors hover:border-accent/40"
+      whileHover={{ y: -6, transition: { duration: 0.2, ease: "easeOut" } }}
+      transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
+      className="group rounded-2xl border border-white/10 bg-surface p-8 shadow-none transition-[colors,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[0_20px_40px_-20px_rgba(102,179,255,0.25)]"
     >
       <div className="flex items-start justify-between gap-4">
         <h3 className="font-heading text-xl text-white sm:text-2xl">{title}</h3>

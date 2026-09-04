@@ -8,6 +8,7 @@ export default function HeroProfile() {
     <motion.div
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
+      whileHover={{ scale: 1.03 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="relative mx-auto aspect-square w-full max-w-[280px] lg:max-w-[420px]"
     >

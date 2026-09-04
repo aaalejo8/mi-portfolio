@@ -15,20 +15,21 @@ export default function ProjectsSection() {
         <h2 className="mt-3 font-heading text-3xl text-white sm:text-4xl">{t.projects.title}</h2>
 
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {featured.map((item) => (
-            <ProjectCardFeatured key={item.title} {...item} />
+          {featured.map((item, index) => (
+            <ProjectCardFeatured key={item.title} {...item} index={index} />
           ))}
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {compact.map((item) => (
-            <ProjectCardCompact key={item.title} {...item} />
+          {compact.map((item, index) => (
+            <ProjectCardCompact key={item.title} {...item} index={index} />
           ))}
 
           <ProjectCardCompact
             title={t.projects.otherProjectsTitle}
             description={t.projects.otherProjectsDescription}
             tags={t.projects.otherProjectsTags}
+            index={compact.length}
           />
         </div>
       </div>
