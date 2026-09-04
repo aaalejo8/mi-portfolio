@@ -38,12 +38,13 @@ interface AnimatedGradientProps {
 export default function AnimatedGradient({ config, className }: AnimatedGradientProps) {
   const { preset, ...overrides } = config;
   const base = presets[preset];
-  const [reducedMotion, setReducedMotion] = useState(
-    () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
+  // Starts false to match the server-rendered markup; the real value is only
+  // known client-side, so it's read after mount to avoid a hydration mismatch.
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(query.matches);
     const listener = (event: MediaQueryListEvent) => setReducedMotion(event.matches);
     query.addEventListener("change", listener);
     return () => query.removeEventListener("change", listener);
