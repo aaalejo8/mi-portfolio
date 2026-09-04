@@ -31,15 +31,28 @@ const PRESS_DEPTH = 6;
 interface KeycapProps {
   skill: SkillItem;
   pressed: boolean;
-  onPress: () => void;
-  onRelease: () => void;
+  hovered: boolean;
   /** Extra rest-depth for rows nearer the viewer, so the front rows read as slightly more prominent. */
   depthBonus?: number;
+  /** Row stagger offset (px), applied directly on this root so no extra wrapper level is needed. */
+  marginLeft?: number;
 }
 
-export default function Keycap({ skill, pressed, onPress, onRelease, depthBonus = 0 }: KeycapProps) {
-  const { name, color, icon: Icon, emoji, key } = skill;
-  const [hovered, setHovered] = useState(false);
+/**
+ * Purely decorative 3D keycap. It renders the visual only (top/front/right
+ * faces, contact shadow, emoji pop) and takes no pointer events itself -
+ * `pressed`/`hovered` are driven entirely by the flat hit-target overlay in
+ * KeyboardGrid. See that file for why: hit-testing an element that lives many
+ * levels deep inside nested `transform-style: preserve-3d` ancestors is
+ * unreliable in Chromium once several such overlapping siblings are on
+ * screen, regardless of the element's own transform.
+ *
+ * The root carries a `data-skill-id` so KeyboardGrid can look it up in the
+ * live DOM and measure its rendered screen position, to place the matching
+ * invisible hit-target there.
+ */
+export default function Keycap({ skill, pressed, hovered, depthBonus = 0, marginLeft = 0 }: KeycapProps) {
+  const { color, icon: Icon, emoji, key } = skill;
   const [pops, setPops] = useState<number[]>([]);
   const wasPressed = useRef(false);
   const timers = useRef<Set<number>>(new Set());
@@ -96,8 +109,10 @@ export default function Keycap({ skill, pressed, onPress, onRelease, depthBonus 
 
   return (
     <div
-      className="relative"
-      style={{ width: KEY_SIZE, height: KEY_SIZE, transformStyle: "preserve-3d" }}
+      data-skill-id={skill.id}
+      aria-hidden
+      className="pointer-events-none relative"
+      style={{ width: KEY_SIZE, height: KEY_SIZE, marginLeft, transformStyle: "preserve-3d" }}
     >
       <AnimatePresence>
         {pops.map((id) => (
@@ -125,7 +140,7 @@ export default function Keycap({ skill, pressed, onPress, onRelease, depthBonus 
           fades as the key rises and darkens/grows as it sinks. */}
       <motion.div
         aria-hidden
-        className="absolute rounded-full bg-black blur-md"
+        className="pointer-events-none absolute rounded-full bg-black blur-md"
         style={{
           width: KEY_SIZE * 0.82,
           height: KEY_SIZE * 0.4,
@@ -139,23 +154,15 @@ export default function Keycap({ skill, pressed, onPress, onRelease, depthBonus 
         transition={{ type: "spring", stiffness: 500, damping: 30 }}
       />
 
-      {/* Top face: the pressable surface, floating above the floor by `depth`. */}
-      <motion.button
-        type="button"
-        aria-label={name}
-        onPointerDown={onPress}
-        onPointerUp={onRelease}
-        onPointerEnter={() => setHovered(true)}
-        onPointerLeave={() => {
-          setHovered(false);
-          onRelease();
-        }}
+      {/* Top face: purely visual now; the flat overlay button in
+          KeyboardGrid is the actual pressable surface. */}
+      <motion.div
         style={{
           translateZ: depth,
           background: topGradient,
           boxShadow: "inset 0 2px 0 rgba(255,255,255,0.35), inset 0 -3px 6px rgba(0,0,0,0.18)",
         }}
-        className="absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-[16px]"
+        className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-[16px]"
       >
         <Icon size={30} style={{ color: contrast }} className="drop-shadow-sm" />
         <span
@@ -164,7 +171,7 @@ export default function Keycap({ skill, pressed, onPress, onRelease, depthBonus 
         >
           {key}
         </span>
-      </motion.button>
+      </motion.div>
 
       {/* Front wall: folded down from the top face's bottom edge, height == depth. */}
       <motion.div
