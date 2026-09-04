@@ -23,7 +23,7 @@ export interface Dictionary {
   };
   about: {
     eyebrow: string;
-    statement: string;
+    paragraphs: string[];
     identity: string[];
   };
   skills: {
@@ -73,8 +73,13 @@ export const es: Dictionary = {
   },
   about: {
     eyebrow: "// about",
-    statement:
-      "Estudiante avanzado de Ingeniería Informática (UCASAL) construyendo productos full-stack, de Salta, Argentina.",
+    paragraphs: [
+      "Me interesa la tecnología principalmente por su capacidad de transformar problemas cotidianos en soluciones reales. Disfruto tanto construir productos desde cero como analizar, mejorar y refactorizar sistemas existentes.",
+      "Actualmente desarrollo proyectos Full Stack mientras profundizo en áreas como Machine Learning, automatización de flujos y agentes de IA. Me interesa especialmente explorar cómo combinar el desarrollo tradicional con herramientas como Claude Code, Codex y Cursor para trabajar de una manera más eficiente y ampliar lo que puedo construir.",
+      "He participado en proyectos universitarios y proyectos con necesidades reales, trabajando en equipo bajo metodologías ágiles como Scrum y utilizando GitHub y Trello como parte habitual de mi flujo de trabajo. Dentro de los equipos suelo adoptar un perfil organizado y proactivo, ayudando a coordinar cuando es necesario y, cuando me enfrento a algo que no conozco, investigando, escuchando y aprendiendo rápidamente.",
+      "También me interesa comprender el producto más allá del código. He trabajado con conceptos relacionados con automatización, Content Engines, agentes, funnels y estrategias digitales, lo que me permite entender mejor cómo una solución técnica puede aportar valor dentro de un producto o negocio.",
+      "Creo que la Inteligencia Artificial representa un cambio similar al que produjo Internet: más que reemplazar a quienes trabajan con tecnología, transforma la forma en la que trabajamos. Por eso intento aprender constantemente cómo utilizarla como una herramienta para potenciar mis capacidades como desarrollador.",
+    ],
     identity: [
       "Desarrollador de Software en Once TV Salta (2024–2026)",
       "Full-stack developer",
