@@ -26,6 +26,7 @@ export interface SkillItem {
   id: string;
   key: string;
   name: string;
+  /** Keycap body color (brand color, or near-black for white-branded logos). */
   color: string;
   icon: IconType;
   emoji: string;
@@ -40,7 +41,7 @@ export const skillsData: SkillItem[] = [
   { id: "html", key: "h", name: "HTML", color: "#E34F26", icon: SiHtml5, emoji: "👴" },
   { id: "css", key: "c", name: "CSS", color: "#663399", icon: SiCss, emoji: "🎨" },
   { id: "react", key: "r", name: "React", color: "#61DAFB", icon: SiReact, emoji: "⚛️" },
-  { id: "nextjs", key: "n", name: "Next.js", color: "#FFFFFF", icon: SiNextdotjs, emoji: "🧩" },
+  { id: "nextjs", key: "n", name: "Next.js", color: "#15151a", icon: SiNextdotjs, emoji: "🧩" },
   { id: "nodejs", key: "o", name: "Node.js", color: "#5FA04E", icon: SiNodedotjs, emoji: "🟢" },
   { id: "restapis", key: "i", name: "REST APIs", color: "#66B3FF", icon: TbApi, emoji: "🔌" },
   { id: "graphql", key: "g", name: "GraphQL", color: "#E10098", icon: SiGraphql, emoji: "🕸️" },
@@ -48,8 +49,8 @@ export const skillsData: SkillItem[] = [
   { id: "postgresql", key: "e", name: "PostgreSQL", color: "#4169E1", icon: SiPostgresql, emoji: "🐘" },
   { id: "docker", key: "d", name: "Docker", color: "#2496ED", icon: SiDocker, emoji: "🐳" },
   { id: "git", key: "1", name: "Git", color: "#F05032", icon: SiGit, emoji: "🌿" },
-  { id: "github", key: "2", name: "GitHub", color: "#FFFFFF", icon: SiGithub, emoji: "🐙" },
-  { id: "vercel", key: "v", name: "Vercel", color: "#FFFFFF", icon: SiVercel, emoji: "▲" },
+  { id: "github", key: "2", name: "GitHub", color: "#1c1c22", icon: SiGithub, emoji: "🐙" },
+  { id: "vercel", key: "v", name: "Vercel", color: "#0f0f13", icon: SiVercel, emoji: "▲" },
   { id: "figma", key: "f", name: "Figma", color: "#F24E1E", icon: SiFigma, emoji: "🖌️" },
   { id: "n8n", key: "8", name: "n8n", color: "#EA4B71", icon: SiN8N, emoji: "🔁" },
 ];

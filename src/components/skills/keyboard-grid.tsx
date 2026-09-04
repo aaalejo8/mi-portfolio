@@ -76,10 +76,10 @@ export default function KeyboardGrid({ onActivate }: KeyboardGridProps) {
     >
       <div className="mx-auto w-fit origin-center scale-[0.55] sm:scale-[0.75] md:scale-100">
         <div
-          className="rounded-[28px] border border-white/10 bg-[#0b0b0e] p-6"
-          style={{ transform: "rotateX(52deg) rotateZ(-42deg)", transformStyle: "preserve-3d" }}
+          className="p-2"
+          style={{ transform: "rotateX(55deg) rotateZ(-40deg)", transformStyle: "preserve-3d" }}
         >
-          <div className="grid grid-cols-4 gap-4 sm:grid-cols-5">
+          <div className="grid grid-cols-4 gap-3 sm:grid-cols-5">
             {skillsData.map((skill) => (
               <Keycap
                 key={skill.id}
@@ -91,7 +91,6 @@ export default function KeyboardGrid({ onActivate }: KeyboardGridProps) {
             ))}
           </div>
         </div>
-        <div className="mx-auto -mt-4 h-8 w-[80%] rounded-full bg-black/70 blur-2xl" />
       </div>
     </motion.div>
   );
