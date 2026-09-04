@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, animate, motion, useMotionValue } from "framer-motion";
 import type { SkillItem } from "@/components/skills/skills-data";
 
 /** Multiply a hex color by `amount` to get a darker/lighter variant. */
@@ -14,7 +14,7 @@ function shade(hex: string, amount: number) {
   return `rgb(${r} ${g} ${b})`;
 }
 
-/** Perceived luminance (0-1), used to pick a readable legend color. */
+/** Perceived luminance (0-1), used to pick a readable legend/icon color. */
 function luminance(hex: string) {
   const value = parseInt(hex.replace("#", ""), 16);
   const r = ((value >> 16) & 255) / 255;
@@ -23,38 +23,48 @@ function luminance(hex: string) {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
-const EXTRUSION_STEPS = 9;
-
-/**
- * Stacked box-shadows fake the keycap's extruded sides. Both states keep the
- * same layer count so the browser can interpolate between them smoothly.
- */
-function extrusion(color: string, depth: number) {
-  const side = shade(color, 0.55);
-  const layers = Array.from(
-    { length: EXTRUSION_STEPS },
-    (_, i) => `0 ${((depth / EXTRUSION_STEPS) * (i + 1)).toFixed(2)}px 0 ${side}`
-  );
-  layers.push(`0 ${depth + 8}px ${depth + 12}px rgba(0,0,0,0.55)`);
-  layers.push("inset 0 2px 0 rgba(255,255,255,0.22)");
-  return layers.join(", ");
-}
+export const KEY_SIZE = 76;
+const REST_DEPTH = 18;
+const HOVER_DEPTH = 21;
+const PRESS_DEPTH = 6;
 
 interface KeycapProps {
   skill: SkillItem;
   pressed: boolean;
   onPress: () => void;
   onRelease: () => void;
+  /** Extra rest-depth for rows nearer the viewer, so the front rows read as slightly more prominent. */
+  depthBonus?: number;
 }
 
-export default function Keycap({ skill, pressed, onPress, onRelease }: KeycapProps) {
+export default function Keycap({ skill, pressed, onPress, onRelease, depthBonus = 0 }: KeycapProps) {
   const { name, color, icon: Icon, emoji, key } = skill;
+  const [hovered, setHovered] = useState(false);
   const [pops, setPops] = useState<number[]>([]);
   const wasPressed = useRef(false);
   const timers = useRef<Set<number>>(new Set());
 
+  // A single spring-driven value feeds the top face's translateZ AND the
+  // side walls' height/width, so the walls genuinely shrink as the key sinks
+  // instead of a fixed-depth block sliding into the floor.
+  const depth = useMotionValue(REST_DEPTH + depthBonus);
+
+  useEffect(() => {
+    const target = (pressed ? PRESS_DEPTH : hovered ? HOVER_DEPTH : REST_DEPTH) + depthBonus;
+    const controls = animate(depth, target, {
+      type: "spring",
+      stiffness: pressed ? 700 : 420,
+      damping: pressed ? 32 : 16,
+      mass: 0.5,
+    });
+    return () => controls.stop();
+  }, [pressed, hovered, depth, depthBonus]);
+
   const isLight = luminance(color) > 0.6;
   const contrast = isLight ? "#141418" : "#ffffff";
+  const topGradient = `linear-gradient(155deg, ${shade(color, 1.18)} 0%, ${color} 55%, ${shade(color, 0.92)} 100%)`;
+  const frontColor = shade(color, 0.75);
+  const rightColor = shade(color, 0.6);
 
   // Spawn one floating emoji per press. The removal timers are tracked so they
   // survive an early release (clearing them here would strand the emoji) and
@@ -85,7 +95,10 @@ export default function Keycap({ skill, pressed, onPress, onRelease }: KeycapPro
   }, []);
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      style={{ width: KEY_SIZE, height: KEY_SIZE, transformStyle: "preserve-3d" }}
+    >
       <AnimatePresence>
         {pops.map((id) => (
           // The wrapper cancels the pad's isometric tilt so the sticker faces
@@ -108,33 +121,76 @@ export default function Keycap({ skill, pressed, onPress, onRelease }: KeycapPro
         ))}
       </AnimatePresence>
 
-      {/* Framer drives only the travel; box-shadow stays under plain React/CSS
-          control because Motion cannot interpolate multi-layer shadow lists. */}
+      {/* Contact shadow: sits flat on the pad floor (z=0), so it shrinks and
+          fades as the key rises and darkens/grows as it sinks. */}
       <motion.div
-        animate={{ y: pressed ? 7 : 0 }}
-        transition={{ type: "spring", stiffness: 600, damping: 26 }}
+        aria-hidden
+        className="absolute rounded-full bg-black blur-md"
+        style={{
+          width: KEY_SIZE * 0.82,
+          height: KEY_SIZE * 0.4,
+          left: KEY_SIZE * 0.09,
+          top: KEY_SIZE * 0.82,
+        }}
+        animate={{
+          opacity: pressed ? 0.25 : hovered ? 0.55 : 0.45,
+          scale: pressed ? 0.8 : hovered ? 1.08 : 1,
+        }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+      />
+
+      {/* Top face: the pressable surface, floating above the floor by `depth`. */}
+      <motion.button
+        type="button"
+        aria-label={name}
+        onPointerDown={onPress}
+        onPointerUp={onRelease}
+        onPointerEnter={() => setHovered(true)}
+        onPointerLeave={() => {
+          setHovered(false);
+          onRelease();
+        }}
+        style={{
+          translateZ: depth,
+          background: topGradient,
+          boxShadow: "inset 0 2px 0 rgba(255,255,255,0.35), inset 0 -3px 6px rgba(0,0,0,0.18)",
+        }}
+        className="absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-[16px]"
       >
-        <button
-          type="button"
-          aria-label={name}
-          onPointerDown={onPress}
-          onPointerUp={onRelease}
-          onPointerLeave={onRelease}
-          style={{
-            background: `linear-gradient(160deg, ${shade(color, 1.22)} 0%, ${color} 45%, ${shade(color, 0.88)} 100%)`,
-            boxShadow: extrusion(color, pressed ? 3 : 10),
-          }}
-          className="relative flex h-[72px] w-[72px] items-center justify-center rounded-[14px] transition-[box-shadow] duration-100 ease-out"
+        <Icon size={30} style={{ color: contrast }} className="drop-shadow-sm" />
+        <span
+          className="absolute bottom-1.5 right-2 font-mono text-[8px] uppercase opacity-40"
+          style={{ color: contrast }}
         >
-          <Icon size={36} style={{ color: contrast }} className="drop-shadow-sm" />
-          <span
-            className="absolute bottom-1 right-2 font-mono text-[9px] uppercase opacity-40"
-            style={{ color: contrast }}
-          >
-            {key}
-          </span>
-        </button>
-      </motion.div>
+          {key}
+        </span>
+      </motion.button>
+
+      {/* Front wall: folded down from the top face's bottom edge, height == depth. */}
+      <motion.div
+        aria-hidden
+        style={{
+          height: depth,
+          background: frontColor,
+          top: "100%",
+          transformOrigin: "top",
+          rotateX: 90,
+        }}
+        className="pointer-events-none absolute left-0 w-full rounded-b-[6px]"
+      />
+
+      {/* Right wall: folded out from the top face's right edge, width == depth. */}
+      <motion.div
+        aria-hidden
+        style={{
+          width: depth,
+          background: rightColor,
+          left: "100%",
+          transformOrigin: "left",
+          rotateY: -90,
+        }}
+        className="pointer-events-none absolute top-0 h-full rounded-r-[6px]"
+      />
     </div>
   );
 }

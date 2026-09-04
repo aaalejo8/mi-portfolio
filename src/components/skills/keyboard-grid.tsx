@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Keycap from "@/components/skills/keycap";
+import Keycap, { KEY_SIZE } from "@/components/skills/keycap";
 import { skillsData } from "@/components/skills/skills-data";
 
 function playClick() {
@@ -23,6 +23,16 @@ function playClick() {
     // Web Audio not available in this environment; fail silently.
   }
 }
+
+const COLUMNS = 5;
+// Progressive rightward shift per row, like a real keyboard's row stagger.
+const ROW_STAGGER = KEY_SIZE * 0.32;
+
+const ROWS = Array.from({ length: Math.ceil(skillsData.length / COLUMNS) }, (_, i) =>
+  skillsData.slice(i * COLUMNS, i * COLUMNS + COLUMNS)
+);
+
+const preserve3d = { transformStyle: "preserve-3d" as const };
 
 interface KeyboardGridProps {
   onActivate: (id: string) => void;
@@ -72,23 +82,40 @@ export default function KeyboardGrid({ onActivate }: KeyboardGridProps) {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="[perspective:1400px]"
+      className="[perspective:1600px]"
     >
-      <div className="mx-auto w-fit origin-center scale-[0.55] sm:scale-[0.75] md:scale-100">
-        <div
-          className="p-2"
-          style={{ transform: "rotateX(55deg) rotateZ(-40deg)", transformStyle: "preserve-3d" }}
-        >
-          <div className="grid grid-cols-4 gap-3 sm:grid-cols-5">
-            {skillsData.map((skill) => (
-              <Keycap
-                key={skill.id}
-                skill={skill}
-                pressed={pressedId === skill.id}
-                onPress={() => press(skill.id)}
-                onRelease={() => release(skill.id)}
-              />
-            ))}
+      <div className="mx-auto w-fit origin-center scale-[0.3] sm:scale-[0.55] md:scale-[0.8] lg:scale-[0.92]" style={preserve3d}>
+        <div style={{ transform: "rotateX(55deg) rotateZ(-40deg)", ...preserve3d }}>
+          {/* Macropad base: a dark slab the keys visibly float above. */}
+          <div
+            className="relative rounded-[32px] border border-white/5 bg-[#0c0c10] p-6 shadow-[0_2px_0_rgba(255,255,255,0.04)_inset] sm:p-10"
+            style={preserve3d}
+          >
+            <div
+              className="pointer-events-none absolute inset-3 rounded-[24px]"
+              style={{ boxShadow: "inset 0 8px 22px rgba(0,0,0,0.65)" }}
+            />
+
+            <div className="relative flex flex-col gap-3.5" style={preserve3d}>
+              {ROWS.map((row, rowIndex) => (
+                <div
+                  key={rowIndex}
+                  className="flex gap-3.5"
+                  style={{ marginLeft: rowIndex * ROW_STAGGER, ...preserve3d }}
+                >
+                  {row.map((skill) => (
+                    <Keycap
+                      key={skill.id}
+                      skill={skill}
+                      pressed={pressedId === skill.id}
+                      onPress={() => press(skill.id)}
+                      onRelease={() => release(skill.id)}
+                      depthBonus={rowIndex * 1.4}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
