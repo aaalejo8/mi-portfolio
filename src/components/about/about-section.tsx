@@ -26,9 +26,9 @@ export default function AboutSection() {
           transition={{ delayChildren: 0.05, staggerChildren: 0.1 }}
           className="mt-6 max-w-3xl space-y-5"
         >
-          {t.about.paragraphs.map((paragraph) => (
+          {t.about.paragraphs.map((paragraph, index) => (
             <motion.p
-              key={paragraph}
+              key={index}
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
@@ -47,9 +47,9 @@ export default function AboutSection() {
           transition={{ delayChildren: 0.1, staggerChildren: 0.06 }}
           className="mt-10 flex flex-wrap gap-3"
         >
-          {t.about.identity.map((item) => (
+          {t.about.identity.map((item, index) => (
             <motion.li
-              key={item}
+              key={index}
               variants={{
                 hidden: { opacity: 0, y: 14 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
