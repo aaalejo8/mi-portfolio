@@ -43,28 +43,37 @@ export default function HeroContent() {
         transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
         className="mt-8 flex flex-col items-center gap-6 lg:items-start"
       >
-        <a
+        <motion.a
           href="#projects"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
           className="rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white transition-colors hover:border-accent/60 hover:bg-accent/10"
         >
           {t.hero.cta}
-        </a>
+        </motion.a>
 
         <div className="flex items-center gap-6 font-mono text-sm text-white/60">
-          <a
+          <motion.a
             href="https://github.com/aaalejo8"
             target="_blank"
             rel="noreferrer"
-            className="transition-colors hover:text-accent"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="inline-block transition-colors hover:text-accent"
           >
             {t.contact.github}
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href="mailto:alejoalmada17@gmail.com"
-            className="transition-colors hover:text-accent"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="inline-block transition-colors hover:text-accent"
           >
             {t.contact.email}
-          </a>
+          </motion.a>
         </div>
 
         <div className="flex items-center gap-2 text-xs text-white/50">

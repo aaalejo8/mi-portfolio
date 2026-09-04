@@ -28,6 +28,8 @@ export default function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           href="mailto:alejoalmada17@gmail.com"
           className="mt-10 inline-block rounded-full border border-white/15 bg-white/5 px-8 py-4 text-sm font-medium text-white transition-colors hover:border-accent/60 hover:bg-accent/10"
@@ -36,22 +38,28 @@ export default function ContactSection() {
         </motion.a>
 
         <div className="mt-10 flex items-center justify-center gap-8">
-          <a
+          <motion.a
             href="https://github.com/aaalejo8"
             target="_blank"
             rel="noreferrer"
             aria-label={t.contact.github}
-            className="text-white/50 transition-colors hover:text-accent"
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="inline-block text-white/50 transition-colors hover:text-accent"
           >
             <SiGithub size={26} />
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href="mailto:alejoalmada17@gmail.com"
             aria-label={t.contact.email}
-            className="text-white/50 transition-colors hover:text-accent"
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="inline-block text-white/50 transition-colors hover:text-accent"
           >
             <HiOutlineMail size={28} />
-          </a>
+          </motion.a>
         </div>
       </div>
 
