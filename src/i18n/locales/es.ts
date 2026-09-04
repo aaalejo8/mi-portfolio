@@ -54,10 +54,13 @@ export interface Dictionary {
   };
   contact: {
     eyebrow: string;
-    statement: string;
+    statementLead: string;
+    statementHighlight: string;
     cta: string;
+    ctaHover: string;
     github: string;
     email: string;
+    linkedin: string;
   };
 }
 
@@ -224,9 +227,12 @@ export const es: Dictionary = {
   },
   contact: {
     eyebrow: "// contact",
-    statement: "¿Tenés un proyecto en mente? Hablemos.",
+    statementLead: "¿Tenés un proyecto en mente?",
+    statementHighlight: "Hablemos.",
     cta: "Escribime",
+    ctaHover: "Abrir correo ↗",
     github: "GitHub",
     email: "Email",
+    linkedin: "LinkedIn",
   },
 };

@@ -160,9 +160,12 @@ export const en: Dictionary = {
   },
   contact: {
     eyebrow: "// contact",
-    statement: "Have a project in mind? Let's talk.",
+    statementLead: "Have a project in mind?",
+    statementHighlight: "Let's talk.",
     cta: "Get in touch",
+    ctaHover: "Open email ↗",
     github: "GitHub",
     email: "Email",
+    linkedin: "LinkedIn",
   },
 };
