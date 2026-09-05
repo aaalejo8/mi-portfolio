@@ -10,6 +10,8 @@ interface ExperienceItem {
   title: string;
   subtitle: string;
   bullets: string[];
+  credentialUrl?: string;
+  credentialLabel?: string;
 }
 
 export interface Dictionary {
@@ -216,12 +218,16 @@ export const es: Dictionary = {
         title: "Certificación Python Essentials 2",
         subtitle: "Cisco Networking Academy",
         bullets: [],
+        credentialUrl: "/credentials/python-essentials-2.png",
+        credentialLabel: "Ver credencial ↗",
       },
       {
         date: "",
         title: "Certificación de Inglés — Nivel B1",
-        subtitle: "",
+        subtitle: "Bonfire Academy",
         bullets: [],
+        credentialUrl: "/credentials/english-b1-bonfire.pdf",
+        credentialLabel: "Ver certificado ↗",
       },
     ],
   },
