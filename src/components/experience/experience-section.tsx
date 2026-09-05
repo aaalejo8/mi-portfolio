@@ -41,6 +41,16 @@ export default function ExperienceSection() {
                   ))}
                 </ul>
               )}
+              {item.credentialUrl && (
+                <a
+                  href={item.credentialUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-2 inline-block font-mono text-xs text-accent/80 transition-colors hover:text-accent hover:underline hover:underline-offset-4"
+                >
+                  {item.credentialLabel}
+                </a>
+              )}
             </motion.div>
           ))}
         </div>
