@@ -1,8 +1,16 @@
-interface ProjectItem {
+interface FeaturedProjectItem {
   title: string;
   description: string;
   tags: string[];
-  status: "in-development" | "completed" | "planned";
+  image: string;
+  alt: string;
+  url?: string;
+  repoUrl?: string;
+}
+
+interface UnderConstructionItem {
+  title: string;
+  pitch: string;
 }
 
 interface ExperienceItem {
@@ -25,7 +33,9 @@ export interface Dictionary {
   };
   about: {
     eyebrow: string;
-    paragraphs: string[];
+    introTitle: string;
+    introSubtitle: string;
+    blocks: { title: string; description: string }[];
     identity: string[];
   };
   skills: {
@@ -39,15 +49,12 @@ export interface Dictionary {
   projects: {
     eyebrow: string;
     title: string;
-    statusInDevelopment: string;
-    statusCompleted: string;
-    statusPlanned: string;
-    viewRepo: string;
-    demoSoon: string;
-    otherProjectsTitle: string;
-    otherProjectsDescription: string;
-    otherProjectsTags: string[];
-    items: ProjectItem[];
+    viewSite: string;
+    viewCode: string;
+    underConstructionTitle: string;
+    underConstructionHint: string;
+    featured: FeaturedProjectItem[];
+    underConstruction: UnderConstructionItem[];
   };
   experience: {
     eyebrow: string;
@@ -63,14 +70,17 @@ export interface Dictionary {
     github: string;
     email: string;
     linkedin: string;
+    localTimeLabel: string;
+    availableNow: string;
+    awayNow: string;
   };
 }
 
 export const es: Dictionary = {
   hero: {
     greeting: "Hi, I'm Alejo.",
-    headingLine1: "SOFTWARE",
-    headingLine2: "DEVELOPER.",
+    headingLine1: "DESARROLLADOR",
+    headingLine2: "DE SOFTWARE.",
     description:
       "Estudiante avanzado de Ingeniería Informática, desarrollador full-stack construyendo productos digitales reales.",
     cta: "Ver mi trabajo",
@@ -78,12 +88,24 @@ export const es: Dictionary = {
   },
   about: {
     eyebrow: "// about",
-    paragraphs: [
-      "Me interesa la tecnología principalmente por su capacidad de transformar problemas cotidianos en soluciones reales. Disfruto tanto construir productos desde cero como analizar, mejorar y refactorizar sistemas existentes.",
-      "Actualmente desarrollo proyectos Full Stack mientras profundizo en áreas como Machine Learning, automatización de flujos y agentes de IA. Me interesa especialmente explorar cómo combinar el desarrollo tradicional con herramientas como Claude Code, Codex y Cursor para trabajar de una manera más eficiente y ampliar lo que puedo construir.",
-      "He participado en proyectos universitarios y proyectos con necesidades reales, trabajando en equipo bajo metodologías ágiles como Scrum y utilizando GitHub y Trello como parte habitual de mi flujo de trabajo. Dentro de los equipos suelo adoptar un perfil organizado y proactivo, ayudando a coordinar cuando es necesario y, cuando me enfrento a algo que no conozco, investigando, escuchando y aprendiendo rápidamente.",
-      "También me interesa comprender el producto más allá del código. He trabajado con conceptos relacionados con automatización, Content Engines, agentes, funnels y estrategias digitales, lo que me permite entender mejor cómo una solución técnica puede aportar valor dentro de un producto o negocio.",
-      "Creo que la Inteligencia Artificial representa un cambio similar al que produjo Internet: más que reemplazar a quienes trabajan con tecnología, transforma la forma en la que trabajamos. Por eso intento aprender constantemente cómo utilizarla como una herramienta para potenciar mis capacidades como desarrollador.",
+    introTitle: "Construyo software para negocios reales.",
+    introSubtitle: "Disfruto tanto crear desde cero como mejorar lo que ya existe.",
+    blocks: [
+      {
+        title: "Ingeniería",
+        description:
+          "Full-stack developer formándome en Ingeniería Informática (UCASAL): estructuras de datos, bases de datos y arquitectura de software.",
+      },
+      {
+        title: "Construcción",
+        description:
+          "De sistemas internos en producción a landings para clientes reales, con Git, Scrum y buenas prácticas de equipo.",
+      },
+      {
+        title: "Exploración",
+        description:
+          "IA, automatización de flujos y agentes: probando cómo herramientas como Claude Code y n8n cambian la forma de construir software.",
+      },
     ],
     identity: [
       "Desarrollador de Software en Once TV Salta (2024–2026)",
@@ -125,68 +147,52 @@ export const es: Dictionary = {
   projects: {
     eyebrow: "// projects",
     title: "Proyectos",
-    statusInDevelopment: "En desarrollo",
-    statusCompleted: "Completado",
-    statusPlanned: "Próximamente",
-    viewRepo: "Ver repo",
-    demoSoon: "Demo próximamente",
-    otherProjectsTitle: "Otros proyectos",
-    otherProjectsDescription:
-      "Landing pages y proyectos desplegados en Vercel: automatización, scripts en Python, análisis de datos.",
-    otherProjectsTags: ["Automatización", "Python", "Vercel"],
-    items: [
+    viewSite: "Ver sitio ↗",
+    viewCode: "Ver código ↗",
+    underConstructionTitle: "En construcción",
+    underConstructionHint:
+      "Sin demo todavía — a medida que tengan avance real, se suman a los destacados.",
+    featured: [
+      {
+        title: "Landing — Florencia Almada, Abogada & Escribana",
+        description:
+          "Sitio institucional para una abogada y escribana individual: identidad propia, servicios y contacto directo.",
+        tags: ["Next.js", "Landing page", "Diseño a medida"],
+        image: "/projects/florencia-almada.png",
+        alt: "Captura de la landing de Florencia Almada, Abogada y Escribana",
+      },
+      {
+        title: "Landing — ALF Soluciones Legales",
+        description:
+          "Landing para un estudio jurídico con dos sedes (Salta Capital y Orán): áreas de práctica y forma de trabajo.",
+        tags: ["Next.js", "Landing page", "Branding"],
+        image: "/projects/alf-soluciones-legales.png",
+        alt: "Captura de la landing de ALF Soluciones Legales",
+      },
+      {
+        title: "Este portfolio",
+        description:
+          "El sitio que estás viendo: frontend con animaciones, un macropad 3D interactivo y soporte ES/EN.",
+        tags: ["Next.js", "Framer Motion", "i18n"],
+        image: "/projects/portfolio-placeholder.svg",
+        alt: "Captura de este portfolio",
+        repoUrl: "https://github.com/aaalejo8/mi-portfolio",
+      },
+    ],
+    underConstruction: [
       {
         title: "Traductor de Lengua de Señas Argentina (LSA)",
-        description:
-          "Modelo entrenado con landmarks para reconocimiento y traducción bidireccional en tiempo real.",
-        tags: ["Python", "IA", "Visión por computadora"],
-        status: "in-development" as const,
+        pitch:
+          "Modelo de visión por computadora que reconoce señas por landmarks y traduce en tiempo real.",
       },
       {
-        title: "SaaS — Distribuidora Palacio de las Golosinas",
-        description:
-          "Solución de gestión comercial para una distribuidora real.",
-        tags: ["Gestión comercial", "SaaS"],
-        status: "planned" as const,
+        title: "App de paseadores de perros",
+        pitch:
+          "Mapa de paseadores disponibles por zona, con perros asignados, reseñas y contacto directo.",
       },
       {
-        title: "ERP",
-        description: "Sistema de planificación de recursos empresariales para un negocio real.",
-        tags: ["ERP", "Gestión"],
-        status: "in-development" as const,
-      },
-      {
-        title: "Sistema de Turnos — Barbería Ciro",
-        description:
-          "Plataforma de gestión de citas para un negocio real.",
-        tags: ["Gestión de turnos", "Reservas"],
-        status: "planned" as const,
-      },
-      {
-        title: "E-commerce de mueblería",
-        description: "Tienda online con stack MERN.",
-        tags: ["MongoDB", "Express", "React", "Node.js"],
-        status: "planned" as const,
-      },
-      {
-        title: "Sistema de Reservas Hoteleras",
-        description: "Gestión de reservas para hotelería.",
-        tags: ["Gestión de reservas"],
-        status: "planned" as const,
-      },
-      {
-        title: "Armador de outfits",
-        description:
-          "Previsualizador de outfits con integración a un adaptador de Google.",
-        tags: ["Integración con Google"],
-        status: "planned" as const,
-      },
-      {
-        title: "SkillForge",
-        description:
-          "Plataforma web gamificada para practicar lenguajes de programación, con integración de APIs REST.",
-        tags: ["Gamificación", "REST APIs"],
-        status: "planned" as const,
+        title: "Selector de outfits",
+        pitch: "Previsualizador de looks con integración a un adaptador de Google.",
       },
     ],
   },
@@ -240,5 +246,8 @@ export const es: Dictionary = {
     github: "GitHub",
     email: "Email",
     linkedin: "LinkedIn",
+    localTimeLabel: "Hora local — Salta, Argentina",
+    availableNow: "Disponible ahora",
+    awayNow: "Fuera de horario, pero respondo pronto",
   },
 };
