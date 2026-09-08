@@ -22,7 +22,8 @@ const archivoBlack = Archivo_Black({
 
 export const metadata: Metadata = {
   title: "Alejo Almada — Software Developer",
-  description: "Portfolio de Alejo Almada, estudiante de Ingeniería Informática y desarrollador full-stack.",
+  description:
+    "Portfolio de Alejo Almada: software para negocios reales en Salta, con experimentación en automatización e IA.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

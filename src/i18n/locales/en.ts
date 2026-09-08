@@ -12,12 +12,24 @@ export const en: Dictionary = {
   },
   about: {
     eyebrow: "// about",
-    paragraphs: [
-      "I'm drawn to technology mainly for its ability to turn everyday problems into real solutions. I enjoy building products from scratch just as much as analyzing, improving, and refactoring existing systems.",
-      "I'm currently building Full Stack projects while going deeper into areas like Machine Learning, workflow automation, and AI agents. I'm especially interested in exploring how to combine traditional development with tools like Claude Code, Codex, and Cursor to work more efficiently and expand what I can build.",
-      "I've worked on university projects and projects with real-world needs, collaborating in teams under agile methodologies like Scrum and using GitHub and Trello as a regular part of my workflow. Within teams I tend to take on an organized, proactive role, helping coordinate when needed and, when facing something unfamiliar, researching, listening, and learning quickly.",
-      "I'm also interested in understanding the product beyond the code. I've worked with concepts related to automation, content engines, agents, funnels, and digital strategy, which helps me better understand how a technical solution can add value within a product or business.",
-      "I believe Artificial Intelligence represents a shift similar to what the Internet brought: rather than replacing people who work with technology, it transforms the way we work. That's why I keep learning how to use it as a tool to enhance my capabilities as a developer.",
+    introTitle: "I build software for real businesses.",
+    introSubtitle: "I enjoy creating from scratch as much as improving what's already there.",
+    blocks: [
+      {
+        title: "Engineering",
+        description:
+          "Full-stack developer training in Computer Engineering (UCASAL): data structures, databases, and software architecture.",
+      },
+      {
+        title: "Building",
+        description:
+          "From internal systems in production to landing pages for real clients, with Git, Scrum, and solid team practices.",
+      },
+      {
+        title: "Exploring",
+        description:
+          "AI, workflow automation, and agents — testing how tools like Claude Code and n8n change the way software gets built.",
+      },
     ],
     identity: [
       "Software Developer at Once TV Salta (2024–2026)",
@@ -59,65 +71,52 @@ export const en: Dictionary = {
   projects: {
     eyebrow: "// projects",
     title: "Projects",
-    statusInDevelopment: "In development",
-    statusCompleted: "Completed",
-    statusPlanned: "Coming soon",
-    viewRepo: "View repo",
-    demoSoon: "Demo coming soon",
-    otherProjectsTitle: "Other projects",
-    otherProjectsDescription:
-      "Landing pages and projects deployed on Vercel: automation, Python scripts, data analysis.",
-    otherProjectsTags: ["Automation", "Python", "Vercel"],
-    items: [
+    viewSite: "View site ↗",
+    viewCode: "View code ↗",
+    underConstructionTitle: "In progress",
+    underConstructionHint:
+      "No demo yet — as each one gets real progress, it moves up to featured.",
+    featured: [
+      {
+        title: "Landing — Florencia Almada, Lawyer & Notary",
+        description:
+          "Institutional site for an individual lawyer and notary: her own identity, services, and direct contact.",
+        tags: ["Next.js", "Landing page", "Custom design"],
+        image: "/projects/florencia-almada.png",
+        alt: "Screenshot of the Florencia Almada, Lawyer & Notary landing page",
+      },
+      {
+        title: "Landing — ALF Soluciones Legales",
+        description:
+          "Landing page for a law firm with two offices (Salta Capital and Orán): practice areas and how they work.",
+        tags: ["Next.js", "Landing page", "Branding"],
+        image: "/projects/alf-soluciones-legales.png",
+        alt: "Screenshot of the ALF Soluciones Legales landing page",
+      },
+      {
+        title: "This portfolio",
+        description:
+          "The site you're looking at: an animated frontend, an interactive 3D macropad, and ES/EN support.",
+        tags: ["Next.js", "Framer Motion", "i18n"],
+        image: "/projects/portfolio-placeholder.svg",
+        alt: "Screenshot of this portfolio",
+        repoUrl: "https://github.com/aaalejo8/mi-portfolio",
+      },
+    ],
+    underConstruction: [
       {
         title: "Argentine Sign Language (LSA) Translator",
-        description:
-          "Model trained on hand landmarks for real-time bidirectional sign language recognition and translation.",
-        tags: ["Python", "AI", "Computer vision"],
-        status: "in-development",
+        pitch:
+          "Computer-vision model that recognizes signs from hand landmarks and translates in real time.",
       },
       {
-        title: "SaaS — Distribuidora Palacio de las Golosinas",
-        description: "Business management solution for a real distribution company.",
-        tags: ["Business management", "SaaS"],
-        status: "planned",
+        title: "Dog walker app",
+        pitch:
+          "Map of available dog walkers by area, with assigned dogs, reviews, and direct contact.",
       },
       {
-        title: "ERP",
-        description: "Enterprise resource planning system for a real business.",
-        tags: ["ERP", "Management"],
-        status: "in-development",
-      },
-      {
-        title: "Booking System — Ciro Barbershop",
-        description: "Appointment management platform for a real business.",
-        tags: ["Booking management", "Scheduling"],
-        status: "planned",
-      },
-      {
-        title: "Furniture E-commerce",
-        description: "Online store built with the MERN stack.",
-        tags: ["MongoDB", "Express", "React", "Node.js"],
-        status: "planned",
-      },
-      {
-        title: "Hotel Booking System",
-        description: "Reservation management for the hospitality industry.",
-        tags: ["Booking management"],
-        status: "planned",
-      },
-      {
-        title: "Outfit Builder",
-        description: "Outfit previewer integrated with a Google adapter.",
-        tags: ["Google integration"],
-        status: "planned",
-      },
-      {
-        title: "SkillForge",
-        description:
-          "Gamified web platform to practice programming languages, integrating REST APIs.",
-        tags: ["Gamification", "REST APIs"],
-        status: "planned",
+        title: "Outfit builder",
+        pitch: "Outfit previewer integrated with a Google adapter.",
       },
     ],
   },
@@ -171,5 +170,8 @@ export const en: Dictionary = {
     github: "GitHub",
     email: "Email",
     linkedin: "LinkedIn",
+    localTimeLabel: "Local time — Salta, Argentina",
+    availableNow: "Available now",
+    awayNow: "Outside working hours, but I reply soon",
   },
 };

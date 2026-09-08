@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/language-provider";
+import { press } from "@/components/ui/press";
 
 export default function HeroContent() {
   const { t } = useLanguage();
@@ -45,10 +46,8 @@ export default function HeroContent() {
       >
         <motion.a
           href="#projects"
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          className="rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white transition-colors hover:border-accent/60 hover:bg-accent/10"
+          {...press}
+          className="press-shadow rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white transition-colors hover:border-accent/60 hover:bg-accent/10"
         >
           {t.hero.cta}
         </motion.a>
@@ -58,19 +57,15 @@ export default function HeroContent() {
             href="https://github.com/aaalejo8"
             target="_blank"
             rel="noreferrer"
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="inline-block transition-colors hover:text-accent"
+            {...press}
+            className="press-shadow inline-block transition-colors hover:text-accent"
           >
             {t.contact.github}
           </motion.a>
           <motion.a
             href="mailto:alejoalmada17@gmail.com"
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="inline-block transition-colors hover:text-accent"
+            {...press}
+            className="press-shadow inline-block transition-colors hover:text-accent"
           >
             {t.contact.email}
           </motion.a>

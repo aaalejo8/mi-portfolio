@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import { useEffect, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { motion, useMotionValue, useSpring, type Variants } from "framer-motion";
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
 import { HiOutlineMail } from "react-icons/hi";
 import { useLanguage } from "@/i18n/language-provider";
+import { press } from "@/components/ui/press";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -13,16 +14,41 @@ const containerVariants: Variants = {
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-function MagneticCta({ href, label, hoverLabel }: { href: string; label: string; hoverLabel: string }) {
+const SALTA_TIMEZONE = "America/Argentina/Salta";
+
+function useSaltaClock() {
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+    // Runs once after mount to read the real clock (server-rendered state stays
+    // null to avoid a hydration mismatch), then ticks every 30s.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setNow(new Date());
+    const interval = window.setInterval(() => setNow(new Date()), 30_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  if (!now) return { time: "", isAvailable: false };
+
+  const time = new Intl.DateTimeFormat("en-GB", {
+    timeZone: SALTA_TIMEZONE,
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(now);
+
+  const hour = Number(
+    new Intl.DateTimeFormat("en-GB", { timeZone: SALTA_TIMEZONE, hour: "2-digit", hour12: false }).format(now)
+  );
+  const isAvailable = hour >= 9 && hour < 20;
+
+  return { time, isAvailable };
+}
+
+function MagneticCta({ href, label }: { href: string; label: string }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 150, damping: 15, mass: 0.4 });
@@ -51,58 +77,30 @@ function MagneticCta({ href, label, hoverLabel }: { href: string; label: string;
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleLeave}
       style={{ x: springX, y: springY }}
-      whileTap={{ scale: 0.97 }}
-      className="relative inline-flex min-w-[11rem] items-center justify-center overflow-hidden rounded-full border border-white/15 bg-white/5 px-8 py-4 text-sm font-medium text-white transition-colors duration-300 hover:border-accent/60"
+      whileTap={{ scale: 0.96 }}
+      transition={{ duration: 0.15, ease: "easeOut" }}
+      className="press-shadow relative inline-flex min-w-[11rem] items-center justify-center overflow-hidden rounded-full border border-white/15 bg-white/5 px-8 py-4 text-sm font-medium text-white transition-colors duration-300 hover:border-accent/60"
     >
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-accent/25 to-accent/5 opacity-0 transition-opacity duration-300"
         style={{ opacity: hovered ? 1 : 0 }}
       />
-      <span className="relative grid">
-        <span
-          aria-hidden={hovered}
-          className="col-start-1 row-start-1 whitespace-nowrap transition-opacity duration-200"
-          style={{ opacity: hovered ? 0 : 1 }}
-        >
-          {label}
-        </span>
-        <span
-          aria-hidden={!hovered}
-          className="col-start-1 row-start-1 whitespace-nowrap transition-opacity duration-200"
-          style={{ opacity: hovered ? 1 : 0 }}
-        >
-          {hoverLabel}
-        </span>
-      </span>
+      {label}
     </motion.a>
   );
 }
 
-function SocialLink({
-  href,
-  label,
-  icon,
-}: {
-  href: string;
-  label: string;
-  icon: React.ReactNode;
-}) {
+function SocialLink({ href, label, icon }: { href: string; label: string; icon: React.ReactNode }) {
   return (
     <motion.a
       href={href}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noreferrer" : undefined}
       aria-label={label}
-      whileHover={{ y: -3 }}
-      whileTap={{ scale: 0.92 }}
-      transition={{ duration: 0.2, ease: "easeOut" }}
-      className="group/icon relative inline-flex flex-col items-center gap-2 text-white/50 transition-colors duration-300 hover:text-accent"
+      {...press}
+      className="press-shadow group/icon relative inline-flex flex-col items-center gap-2 rounded-full p-2 text-white/50 transition-colors duration-300 hover:text-accent"
     >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-[-10px] -z-10 rounded-full bg-accent/0 blur-md transition-colors duration-300 group-hover/icon:bg-accent/20"
-      />
       {icon}
       <span className="pointer-events-none absolute -bottom-6 whitespace-nowrap font-mono text-[10px] text-white/40 opacity-0 transition-opacity duration-200 group-hover/icon:opacity-100">
         {label}
@@ -114,28 +112,13 @@ function SocialLink({
 export default function ContactSection() {
   const { t } = useLanguage();
   const year = new Date().getFullYear();
-  const spotlightRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: ReactMouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    spotlightRef.current?.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-    spotlightRef.current?.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-  };
+  const { time, isAvailable } = useSaltaClock();
 
   return (
-    <section
-      id="contact"
-      onMouseMove={handleMouseMove}
-      className="relative overflow-hidden bg-background py-24 lg:py-32"
-    >
+    <section id="contact" className="relative overflow-hidden bg-background py-24 lg:py-32">
       <div
-        ref={spotlightRef}
         aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(102,179,255,0.10), transparent 30%)",
-        }}
+        className="pointer-events-none absolute left-1/2 top-0 -z-10 h-72 w-[140%] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl"
       />
 
       <motion.div
@@ -149,27 +132,32 @@ export default function ContactSection() {
           {t.contact.eyebrow}
         </motion.p>
 
-        <motion.h2
-          variants={itemVariants}
-          className="relative mt-3 font-heading text-3xl text-white sm:text-4xl"
-        >
-          <span
-            aria-hidden
-            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-40 w-[140%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-3xl"
-          />
+        <motion.h2 variants={itemVariants} className="mt-3 font-heading text-3xl text-white sm:text-4xl">
           {t.contact.statementLead}
           <br />
-          <span className="group/highlight relative inline-block">
-            {t.contact.statementHighlight}
-            <span
-              aria-hidden
-              className="ml-1 inline-block h-[0.85em] w-[2px] translate-y-[2px] bg-accent align-middle opacity-0 transition-opacity duration-200 group-hover/highlight:opacity-100 group-hover/highlight:animate-[blink-cursor_1s_steps(1)_infinite]"
-            />
-          </span>
+          <span className="text-accent">{t.contact.statementHighlight}</span>
         </motion.h2>
 
         <motion.div variants={itemVariants} className="mt-10 flex justify-center">
-          <MagneticCta href="mailto:alejoalmada17@gmail.com" label={t.contact.cta} hoverLabel={t.contact.ctaHover} />
+          <MagneticCta href="mailto:alejoalmada17@gmail.com" label={t.contact.cta} />
+        </motion.div>
+
+        <motion.div
+          variants={itemVariants}
+          className="mt-8 flex items-center justify-center gap-2 font-mono text-xs text-white/50"
+        >
+          <span className="relative flex h-2 w-2">
+            {isAvailable && (
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/60" />
+            )}
+            <span className={`relative inline-flex h-2 w-2 rounded-full ${isAvailable ? "bg-accent" : "bg-white/30"}`} />
+          </span>
+          {isAvailable ? t.contact.availableNow : t.contact.awayNow}
+          {time && (
+            <span className="text-white/30">
+              · {t.contact.localTimeLabel} {time}
+            </span>
+          )}
         </motion.div>
 
         <motion.div variants={itemVariants} className="mt-14 flex items-center justify-center gap-10">
