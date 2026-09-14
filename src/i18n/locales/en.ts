@@ -102,17 +102,21 @@ export const en: Dictionary = {
         alt: "Screenshot of this portfolio",
         repoUrl: "https://github.com/aaalejo8/mi-portfolio",
       },
+      {
+        title: "Paseamos",
+        description:
+          "Platform to find dog walkers by area, with assigned dogs, reviews, and direct contact.",
+        tags: ["Next.js", "Web app"],
+        image: "/projects/paseamos.png",
+        alt: "Screenshot of the Paseamos app",
+        url: "https://paseamos.vercel.app/",
+      },
     ],
     underConstruction: [
       {
         title: "Argentine Sign Language (LSA) Translator",
         pitch:
           "Computer-vision model that recognizes signs from hand landmarks and translates in real time.",
-      },
-      {
-        title: "Dog walker app",
-        pitch:
-          "Map of available dog walkers by area, with assigned dogs, reviews, and direct contact.",
       },
       {
         title: "Outfit builder",

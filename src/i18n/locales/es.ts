@@ -178,17 +178,21 @@ export const es: Dictionary = {
         alt: "Captura de este portfolio",
         repoUrl: "https://github.com/aaalejo8/mi-portfolio",
       },
+      {
+        title: "Paseamos",
+        description:
+          "Plataforma para encontrar paseadores de perros por zona, con perros asignados, reseñas y contacto directo.",
+        tags: ["Next.js", "Web app"],
+        image: "/projects/paseamos.png",
+        alt: "Captura de la app Paseamos",
+        url: "https://paseamos.vercel.app/",
+      },
     ],
     underConstruction: [
       {
         title: "Traductor de Lengua de Señas Argentina (LSA)",
         pitch:
           "Modelo de visión por computadora que reconoce señas por landmarks y traduce en tiempo real.",
-      },
-      {
-        title: "App de paseadores de perros",
-        pitch:
-          "Mapa de paseadores disponibles por zona, con perros asignados, reseñas y contacto directo.",
       },
       {
         title: "Selector de outfits",
