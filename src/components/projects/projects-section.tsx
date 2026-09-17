@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/i18n/language-provider";
-import ProjectCardFeatured from "@/components/projects/project-card-featured";
+import ProjectsCarousel from "@/components/projects/projects-carousel";
 import ProjectCardCompact from "@/components/projects/project-card-compact";
 
 export default function ProjectsSection() {
@@ -13,10 +13,8 @@ export default function ProjectsSection() {
         <p className="font-mono text-sm text-accent">{t.projects.eyebrow}</p>
         <h2 className="mt-3 font-heading text-3xl text-white sm:text-4xl">{t.projects.title}</h2>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {t.projects.featured.map((item, index) => (
-            <ProjectCardFeatured key={index} {...item} index={index} />
-          ))}
+        <div className="mt-12">
+          <ProjectsCarousel items={t.projects.featured} />
         </div>
 
         <div className="mt-20">

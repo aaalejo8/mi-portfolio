@@ -76,6 +76,9 @@ export const en: Dictionary = {
     underConstructionTitle: "In progress",
     underConstructionHint:
       "No demo yet — as each one gets real progress, it moves up to featured.",
+    carouselPrev: "Previous project",
+    carouselNext: "Next project",
+    carouselGoTo: "View project",
     featured: [
       {
         title: "Landing — Florencia Almada, Lawyer & Notary",

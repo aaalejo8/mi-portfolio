@@ -53,6 +53,9 @@ export interface Dictionary {
     viewCode: string;
     underConstructionTitle: string;
     underConstructionHint: string;
+    carouselPrev: string;
+    carouselNext: string;
+    carouselGoTo: string;
     featured: FeaturedProjectItem[];
     underConstruction: UnderConstructionItem[];
   };
@@ -152,6 +155,9 @@ export const es: Dictionary = {
     underConstructionTitle: "En construcción",
     underConstructionHint:
       "Sin demo todavía — a medida que tengan avance real, se suman a los destacados.",
+    carouselPrev: "Proyecto anterior",
+    carouselNext: "Proyecto siguiente",
+    carouselGoTo: "Ver proyecto",
     featured: [
       {
         title: "Landing — Florencia Almada, Abogada & Escribana",
