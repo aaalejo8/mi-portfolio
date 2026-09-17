@@ -34,15 +34,17 @@ export default function ProjectCardFeatured({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
-      className="group overflow-hidden rounded-2xl border border-white/10 bg-surface transition-colors duration-300 hover:border-accent/40"
+      className="group select-none overflow-hidden rounded-2xl border border-white/10 bg-surface transition-colors duration-300 hover:border-accent/40"
     >
-      <div className="relative aspect-video overflow-hidden border-b border-white/10 bg-black/40">
+      <div className="relative aspect-video select-none overflow-hidden border-b border-white/10 bg-black/40">
         <Image
           src={image}
           alt={alt}
           fill
+          draggable={false}
+          onDragStart={(event) => event.preventDefault()}
           sizes="(min-width: 1024px) 33vw, 100vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="pointer-events-none object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
       </div>
 
