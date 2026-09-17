@@ -113,11 +113,12 @@ export default function ProjectsCarousel({ items }: { items: CarouselItem[] }) {
         style={{ perspective: isMobile ? undefined : 1400 }}
       >
         <motion.div
-          className="mx-auto grid max-w-sm grid-cols-1 grid-rows-1 sm:max-w-md lg:max-w-lg"
+          className="mx-auto grid max-w-sm cursor-grab grid-cols-1 grid-rows-1 active:cursor-grabbing sm:max-w-md lg:max-w-lg"
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.6}
           dragTransition={{ bounceStiffness: 400, bounceDamping: 32 }}
+          whileTap={{ cursor: "grabbing" }}
           onDragEnd={handleDragEnd}
         >
           {items.map((item, index) => {
