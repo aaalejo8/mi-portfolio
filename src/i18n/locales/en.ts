@@ -91,6 +91,22 @@ export const en: Dictionary = {
         url: "https://elif-web-2lk.pages.dev/",
       },
       {
+        title: "KineSys — Physiotherapy clinic management",
+        description:
+          "End-to-end web system: patients, practitioners, and services, appointments and schedules based on availability, role-based access, and visit tracking. Built by a 7-person team using Scrum.",
+        tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
+        image: projectImages.kinesys,
+        alt: "Screenshot of KineSys: booking screen to pick a practitioner, service, and time slot",
+      },
+      {
+        title: "ERP — El Palacio de las Golosinas",
+        description:
+          "ERP for a candy distributor: centralizes inventory and stock movements, purchasing, and treasury, digitizing its operations. Built by a 6-person team in sprints with user stories.",
+        tags: ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL"],
+        image: projectImages.erpPalacioGolosinas,
+        alt: "Screenshot of the El Palacio de las Golosinas ERP: product catalog in the inventory module",
+      },
+      {
         title: "Landing — Florencia Almada, Lawyer & Notary",
         description:
           "Institutional site for an individual lawyer and notary: her own identity, services, and direct contact.",
