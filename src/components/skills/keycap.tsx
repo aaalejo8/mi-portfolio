@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { AnimatePresence, animate, motion, useMotionValue } from "framer-motion";
 import type { SkillItem } from "@/components/skills/skills-data";
 
@@ -51,7 +51,9 @@ interface KeycapProps {
  * live DOM and measure its rendered screen position, to place the matching
  * invisible hit-target there.
  */
-export default function Keycap({ skill, pressed, hovered, depthBonus = 0, marginLeft = 0 }: KeycapProps) {
+// Memoized: KeyboardGrid re-renders on every hover/press change, but only the
+// one or two keys whose `pressed`/`hovered` flags flipped need to re-render.
+export default memo(function Keycap({ skill, pressed, hovered, depthBonus = 0, marginLeft = 0 }: KeycapProps) {
   const { color, icon: Icon, emoji, key } = skill;
   const [pops, setPops] = useState<number[]>([]);
   const wasPressed = useRef(false);
@@ -200,4 +202,4 @@ export default function Keycap({ skill, pressed, hovered, depthBonus = 0, margin
       />
     </div>
   );
-}
+});

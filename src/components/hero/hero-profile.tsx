@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+// Static import: fingerprinted + immutable cache, with a build-time blur placeholder.
+import profile from "../../../public/profile.webp";
 import { useRef, type MouseEvent as ReactMouseEvent } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
@@ -42,7 +44,8 @@ export default function HeroProfile() {
         className="relative h-full w-full"
       >
         <Image
-          src="/profile.webp"
+          src={profile}
+          placeholder="blur"
           alt="Alejo Almada"
           fill
           priority

@@ -1,7 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Warp, type WarpParams } from "@paper-design/shaders-react";
+import dynamic from "next/dynamic";
+import { useReducedMotion } from "framer-motion";
+import type { WarpParams } from "@paper-design/shaders-react";
+
+// The WebGL shader is purely decorative and draws nothing on the server, so
+// it's split out of the main bundle and loaded client-side only. The section
+// keeps its dark background while the chunk loads.
+const Warp = dynamic(() => import("@/components/ui/warp-shader").then((mod) => mod.Warp), {
+  ssr: false,
+});
 
 /**
  * Preset library for AnimatedGradient. Each preset maps to the underlying
@@ -38,17 +46,9 @@ interface AnimatedGradientProps {
 export default function AnimatedGradient({ config, className }: AnimatedGradientProps) {
   const { preset, ...overrides } = config;
   const base = presets[preset];
-  // Starts false to match the server-rendered markup; the real value is only
-  // known client-side, so it's read after mount to avoid a hydration mismatch.
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(query.matches);
-    const listener = (event: MediaQueryListEvent) => setReducedMotion(event.matches);
-    query.addEventListener("change", listener);
-    return () => query.removeEventListener("change", listener);
-  }, []);
+  // Framer's hook subscribes to the prefers-reduced-motion media query
+  // (and follows changes live), replacing a hand-rolled effect.
+  const reducedMotion = useReducedMotion();
 
   const params: WarpParams = {
     ...base,

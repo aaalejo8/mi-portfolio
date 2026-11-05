@@ -1,15 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Keycap, { KEY_SIZE } from "@/components/skills/keycap";
 import { skillsData } from "@/components/skills/skills-data";
 
+// One shared context for every click: browsers cap how many AudioContexts a
+// page may open, and creating one per key press leaked them (never closed).
+let audioCtx: AudioContext | null = null;
+
 function playClick() {
   try {
-    const AudioContextClass =
-      window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    const ctx = new AudioContextClass();
+    if (!audioCtx) {
+      const AudioContextClass =
+        window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      audioCtx = new AudioContextClass();
+    }
+    const ctx = audioCtx;
+    if (ctx.state === "suspended") void ctx.resume();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = "square";
@@ -41,7 +49,9 @@ interface KeyboardGridProps {
   onActivate: (id: string) => void;
 }
 
-export default function KeyboardGrid({ onActivate }: KeyboardGridProps) {
+// Memoized so picking a skill (which re-renders SkillsSection to show its
+// description) doesn't re-render the whole 3D macropad from the parent.
+export default memo(function KeyboardGrid({ onActivate }: KeyboardGridProps) {
   const [pressedId, setPressedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [rects, setRects] = useState<Record<string, Rect>>({});
@@ -89,8 +99,17 @@ export default function KeyboardGrid({ onActivate }: KeyboardGridProps) {
 
   useLayoutEffect(() => {
     measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    // Coalesce bursts of resize events into one measurement per frame.
+    let frame = 0;
+    const onResize = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", onResize);
+    };
   }, [measure]);
 
   const press = useCallback(
@@ -225,4 +244,4 @@ export default function KeyboardGrid({ onActivate }: KeyboardGridProps) {
       </div>
     </div>
   );
-}
+});

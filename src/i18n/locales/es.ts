@@ -1,8 +1,11 @@
+import type { StaticImageData } from "next/image";
+import { projectImages } from "@/components/projects/project-images";
+
 interface FeaturedProjectItem {
   title: string;
   description: string;
   tags: string[];
-  image: string;
+  image: StaticImageData | string;
   alt: string;
   url?: string;
   repoUrl?: string;
@@ -164,7 +167,7 @@ export const es: Dictionary = {
         description:
           "Cofundador de ELiF, estudio que desarrolla páginas web, tiendas online y sistemas de gestión a medida para negocios.",
         tags: ["Cofundador", "Web", "Sistemas de gestión"],
-        image: "/projects/elif.png",
+        image: projectImages.elif,
         alt: "Captura del sitio de ELiF, estudio de desarrollo de software",
         url: "https://elif-web-2lk.pages.dev/",
       },
@@ -173,7 +176,7 @@ export const es: Dictionary = {
         description:
           "Sitio institucional para una abogada y escribana individual: identidad propia, servicios y contacto directo.",
         tags: ["Next.js", "Landing page", "Diseño a medida"],
-        image: "/projects/florencia-almada.png",
+        image: projectImages.florenciaAlmada,
         alt: "Captura de la landing de Florencia Almada, Abogada y Escribana",
       },
       {
@@ -181,7 +184,7 @@ export const es: Dictionary = {
         description:
           "Landing para un estudio jurídico con dos sedes (Salta Capital y Orán): áreas de práctica y forma de trabajo.",
         tags: ["Next.js", "Landing page", "Branding"],
-        image: "/projects/alf-soluciones-legales.png",
+        image: projectImages.alfSolucionesLegales,
         alt: "Captura de la landing de ALF Soluciones Legales",
       },
       {
@@ -189,7 +192,7 @@ export const es: Dictionary = {
         description:
           "El sitio que estás viendo: frontend con animaciones, un macropad 3D interactivo y soporte ES/EN.",
         tags: ["Next.js", "Framer Motion", "i18n"],
-        image: "/projects/portfolio-placeholder.svg",
+        image: projectImages.portfolioPlaceholder,
         alt: "Captura de este portfolio",
         repoUrl: "https://github.com/aaalejo8/mi-portfolio",
       },
@@ -198,7 +201,7 @@ export const es: Dictionary = {
         description:
           "Plataforma para encontrar paseadores de perros por zona, con perros asignados, reseñas y contacto directo.",
         tags: ["Next.js", "Web app"],
-        image: "/projects/paseamos.png",
+        image: projectImages.paseamos,
         alt: "Captura de la app Paseamos",
         url: "https://paseamos.vercel.app/",
       },
