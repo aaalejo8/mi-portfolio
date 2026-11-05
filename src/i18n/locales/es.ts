@@ -160,6 +160,15 @@ export const es: Dictionary = {
     carouselGoTo: "Ver proyecto",
     featured: [
       {
+        title: "ELiF — Estudio de software",
+        description:
+          "Cofundador de ELiF, estudio que desarrolla páginas web, tiendas online y sistemas de gestión a medida para negocios.",
+        tags: ["Cofundador", "Web", "Sistemas de gestión"],
+        image: "/projects/elif.png",
+        alt: "Captura del sitio de ELiF, estudio de desarrollo de software",
+        url: "https://elif-web-2lk.pages.dev/",
+      },
+      {
         title: "Landing — Florencia Almada, Abogada & Escribana",
         description:
           "Sitio institucional para una abogada y escribana individual: identidad propia, servicios y contacto directo.",
@@ -210,6 +219,12 @@ export const es: Dictionary = {
     eyebrow: "// experience",
     title: "Experiencia",
     items: [
+      {
+        date: "Ago 2026 — Actualidad",
+        title: "Pasante Full Stack",
+        subtitle: "Poncho Capital",
+        bullets: [],
+      },
       {
         date: "2024 — 2026",
         title: "Desarrollador de Software",
