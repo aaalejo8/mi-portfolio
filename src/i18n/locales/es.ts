@@ -172,6 +172,22 @@ export const es: Dictionary = {
         url: "https://elif-web-2lk.pages.dev/",
       },
       {
+        title: "KineSys — Gestión para centros de kinesiología",
+        description:
+          "Sistema web integral: pacientes, profesionales y servicios, turnos y agendas según disponibilidad, acceso por roles y seguimiento de atenciones. Hecho en un equipo de 7 con Scrum.",
+        tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
+        image: projectImages.kinesys,
+        alt: "Captura de KineSys: pantalla para otorgar turnos eligiendo profesional, servicio y horario",
+      },
+      {
+        title: "ERP — El Palacio de las Golosinas",
+        description:
+          "ERP para una distribuidora de golosinas: centraliza inventario y movimientos de stock, compras y tesorería, y digitaliza su operación. Hecho en un equipo de 6, por sprints e historias de usuario.",
+        tags: ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL"],
+        image: projectImages.erpPalacioGolosinas,
+        alt: "Captura del ERP de El Palacio de las Golosinas: catálogo de productos del módulo de inventario",
+      },
+      {
         title: "Landing — Florencia Almada, Abogada & Escribana",
         description:
           "Sitio institucional para una abogada y escribana individual: identidad propia, servicios y contacto directo.",

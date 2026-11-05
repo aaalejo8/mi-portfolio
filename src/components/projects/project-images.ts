@@ -6,9 +6,13 @@ import elif from "../../../public/projects/elif.png";
 import florenciaAlmada from "../../../public/projects/florencia-almada.png";
 import alfSolucionesLegales from "../../../public/projects/alf-soluciones-legales.png";
 import paseamos from "../../../public/projects/paseamos.png";
+import kinesys from "../../../public/projects/kinesys.png";
+import erpPalacioGolosinas from "../../../public/projects/erp-palacio-golosinas.png";
 
 export const projectImages = {
   elif,
+  kinesys,
+  erpPalacioGolosinas,
   florenciaAlmada,
   alfSolucionesLegales,
   paseamos,
