@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 import { es } from "@/i18n/locales/es";
 import { en } from "@/i18n/locales/en";
 
@@ -34,13 +42,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     setLangState(detected);
   }, []);
 
-  const setLang = (next: Lang) => {
+  const setLang = useCallback((next: Lang) => {
     setLangState(next);
     window.localStorage.setItem(STORAGE_KEY, next);
-  };
+  }, []);
+
+  // Stable value: consumers only re-render when the language actually changes.
+  const value = useMemo(() => ({ lang, setLang, t: dictionaries[lang] }), [lang, setLang]);
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t: dictionaries[lang] }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );

@@ -48,6 +48,32 @@ function useSaltaClock() {
   return { time, isAvailable };
 }
 
+/**
+ * Owns the 30s clock tick, so only this small status line re-renders on each
+ * tick instead of the whole Contact section.
+ */
+function AvailabilityStatus() {
+  const { t } = useLanguage();
+  const { time, isAvailable } = useSaltaClock();
+
+  return (
+    <>
+      <span className="relative flex h-2 w-2">
+        {isAvailable && (
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/60" />
+        )}
+        <span className={`relative inline-flex h-2 w-2 rounded-full ${isAvailable ? "bg-accent" : "bg-white/30"}`} />
+      </span>
+      {isAvailable ? t.contact.availableNow : t.contact.awayNow}
+      {time && (
+        <span className="text-white/30">
+          · {t.contact.localTimeLabel} {time}
+        </span>
+      )}
+    </>
+  );
+}
+
 function MagneticCta({ href, label }: { href: string; label: string }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -112,7 +138,6 @@ function SocialLink({ href, label, icon }: { href: string; label: string; icon: 
 export default function ContactSection() {
   const { t } = useLanguage();
   const year = new Date().getFullYear();
-  const { time, isAvailable } = useSaltaClock();
 
   return (
     <section id="contact" className="relative overflow-hidden bg-background py-24 lg:py-32">
@@ -146,18 +171,7 @@ export default function ContactSection() {
           variants={itemVariants}
           className="mt-8 flex items-center justify-center gap-2 font-mono text-xs text-white/50"
         >
-          <span className="relative flex h-2 w-2">
-            {isAvailable && (
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/60" />
-            )}
-            <span className={`relative inline-flex h-2 w-2 rounded-full ${isAvailable ? "bg-accent" : "bg-white/30"}`} />
-          </span>
-          {isAvailable ? t.contact.availableNow : t.contact.awayNow}
-          {time && (
-            <span className="text-white/30">
-              · {t.contact.localTimeLabel} {time}
-            </span>
-          )}
+          <AvailabilityStatus />
         </motion.div>
 
         <motion.div variants={itemVariants} className="mt-14 flex items-center justify-center gap-10">

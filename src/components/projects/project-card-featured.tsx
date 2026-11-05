@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { memo } from "react";
+import Image, { type StaticImageData } from "next/image";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/language-provider";
 import { press } from "@/components/ui/press";
@@ -9,14 +10,16 @@ interface ProjectCardFeaturedProps {
   title: string;
   description: string;
   tags: readonly string[];
-  image: string;
+  image: StaticImageData | string;
   alt: string;
   url?: string;
   repoUrl?: string;
   index?: number;
 }
 
-export default function ProjectCardFeatured({
+// Memoized: the carousel re-renders on every slide change, but each card's
+// props (from the dictionary) are stable, so cards needn't re-render with it.
+export default memo(function ProjectCardFeatured({
   title,
   description,
   tags,
@@ -43,7 +46,9 @@ export default function ProjectCardFeatured({
           fill
           draggable={false}
           onDragStart={(event) => event.preventDefault()}
-          sizes="(min-width: 1024px) 33vw, 100vw"
+          // The carousel caps a card at max-w-sm / md / lg (384 / 448 / 512px).
+          sizes="(min-width: 1024px) 512px, (min-width: 640px) 448px, 100vw"
+          placeholder={typeof image === "string" ? "empty" : "blur"}
           className="pointer-events-none object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
       </div>
@@ -92,4 +97,4 @@ export default function ProjectCardFeatured({
       </div>
     </motion.article>
   );
-}
+});

@@ -1,4 +1,5 @@
 import type { Dictionary } from "@/i18n/locales/es";
+import { projectImages } from "@/components/projects/project-images";
 
 export const en: Dictionary = {
   hero: {
@@ -85,7 +86,7 @@ export const en: Dictionary = {
         description:
           "Co-founder of ELiF, a studio building websites, online stores, and custom management systems for businesses.",
         tags: ["Co-founder", "Web", "Management systems"],
-        image: "/projects/elif.png",
+        image: projectImages.elif,
         alt: "Screenshot of the ELiF software studio website",
         url: "https://elif-web-2lk.pages.dev/",
       },
@@ -94,7 +95,7 @@ export const en: Dictionary = {
         description:
           "Institutional site for an individual lawyer and notary: her own identity, services, and direct contact.",
         tags: ["Next.js", "Landing page", "Custom design"],
-        image: "/projects/florencia-almada.png",
+        image: projectImages.florenciaAlmada,
         alt: "Screenshot of the Florencia Almada, Lawyer & Notary landing page",
       },
       {
@@ -102,7 +103,7 @@ export const en: Dictionary = {
         description:
           "Landing page for a law firm with two offices (Salta Capital and Orán): practice areas and how they work.",
         tags: ["Next.js", "Landing page", "Branding"],
-        image: "/projects/alf-soluciones-legales.png",
+        image: projectImages.alfSolucionesLegales,
         alt: "Screenshot of the ALF Soluciones Legales landing page",
       },
       {
@@ -110,7 +111,7 @@ export const en: Dictionary = {
         description:
           "The site you're looking at: an animated frontend, an interactive 3D macropad, and ES/EN support.",
         tags: ["Next.js", "Framer Motion", "i18n"],
-        image: "/projects/portfolio-placeholder.svg",
+        image: projectImages.portfolioPlaceholder,
         alt: "Screenshot of this portfolio",
         repoUrl: "https://github.com/aaalejo8/mi-portfolio",
       },
@@ -119,7 +120,7 @@ export const en: Dictionary = {
         description:
           "Platform to find dog walkers by area, with assigned dogs, reviews, and direct contact.",
         tags: ["Next.js", "Web app"],
-        image: "/projects/paseamos.png",
+        image: projectImages.paseamos,
         alt: "Screenshot of the Paseamos app",
         url: "https://paseamos.vercel.app/",
       },

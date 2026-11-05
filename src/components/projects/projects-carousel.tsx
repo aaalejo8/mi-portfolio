@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, type PanInfo } from "framer-motion";
+import type { StaticImageData } from "next/image";
 import { useLanguage } from "@/i18n/language-provider";
 import ProjectCardFeatured from "@/components/projects/project-card-featured";
 
@@ -9,7 +10,7 @@ interface CarouselItem {
   title: string;
   description: string;
   tags: readonly string[];
-  image: string;
+  image: StaticImageData | string;
   alt: string;
   url?: string;
   repoUrl?: string;
