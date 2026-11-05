@@ -81,6 +81,15 @@ export const en: Dictionary = {
     carouselGoTo: "View project",
     featured: [
       {
+        title: "ELiF — Software studio",
+        description:
+          "Co-founder of ELiF, a studio building websites, online stores, and custom management systems for businesses.",
+        tags: ["Co-founder", "Web", "Management systems"],
+        image: "/projects/elif.png",
+        alt: "Screenshot of the ELiF software studio website",
+        url: "https://elif-web-2lk.pages.dev/",
+      },
+      {
         title: "Landing — Florencia Almada, Lawyer & Notary",
         description:
           "Institutional site for an individual lawyer and notary: her own identity, services, and direct contact.",
@@ -131,6 +140,12 @@ export const en: Dictionary = {
     eyebrow: "// experience",
     title: "Experience",
     items: [
+      {
+        date: "Aug 2026 — Present",
+        title: "Full Stack Developer Intern",
+        subtitle: "Poncho Capital",
+        bullets: [],
+      },
       {
         date: "2024 — 2026",
         title: "Software Developer",
